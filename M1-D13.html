@@ -29,7 +29,7 @@ The user should be able to see the list of tasks, add new ones, delete existing 
       .my-task-list {
         background-color: aquamarine;
       }
-      .my-list-item {
+      .my-task-list li {
         border: 1px solid #eee;
         font-weight: bold;
         font-size: 22px;
@@ -37,7 +37,7 @@ The user should be able to see the list of tasks, add new ones, delete existing 
       .button {
         padding: 8px 15px;
       }
-      .button-remove {
+      .button {
         padding: 8px 15px;
       }
     </style>
@@ -56,14 +56,14 @@ The user should be able to see the list of tasks, add new ones, delete existing 
       class="button"
       type="button"
       value="Add new Task"
-      onclick="addNewTask(event)"
+      onclick="addNewTask()"
     />
 
     <!-- EXERCISE 3
         Create a button "Remove Last Task" to trigger the method "removeLast"
         -->
     <input
-      class="button-remove"
+      class="button"
       type="button"
       value="Remove Last Task"
       onclick="removeLast()"
@@ -103,7 +103,7 @@ The user should be able to see the list of tasks, add new ones, delete existing 
                 - Use the document.createElement to create the new List Item
                 - Append the LI child to the UL
             */
-      function addNewTask(event) {
+      function addNewTask() {
         let inputValue = document.getElementById("newTask").value;
         if (inputValue === "") {
           alert("Text cannot be empty!");
@@ -143,15 +143,16 @@ The user should be able to see the list of tasks, add new ones, delete existing 
                Create a method "Create a method "getTasksAsArray"" which returns, and prints to
                the console an array containing the tasks as strings
             */
-      const getTasksAsArray = function () {
-        let taskList = document.getElementsByTagName("li");
-        console.log(taskList);
+
+      function getTasksAsArray() {
+        let liNode = document.getElementsByTagName("li");
         let taskArray = [];
-        for (let i = 0; i < taskList.length; i++) {
-          taskArray[i] = taskArray[i].innerText;
+        for (let i = 0; i < liNode.length; i++) {
+          let taskitem = liNode[i].innerText;
+          taskArray.push(taskitem);
         }
-        console.log(taskArray);
-      };
+        return taskArray;
+      }
 
       /* EXERCISE 9:
                Create a method "changeTaskBackgroundColor" which takes the color from the color picker with an
@@ -174,12 +175,12 @@ The user should be able to see the list of tasks, add new ones, delete existing 
                - Reuse the functions previously created
             */
 
-      function bubbleSort() {
-        let arrayElement = getTasksAsArray();
-        arrayElement.sort(function (a, b) {
-          return `Array Elements ${a.length - b.length}`;
-        });
-      }
+      // function bubbleSort() {
+      //   let arrayElement = getTasksAsArray();
+      //   arrayElement.sort(function (a, b) {
+      //     return `Array Elements ${a.length - b.length}`;
+      //   });
+      // }
     </script>
   </body>
 </html>
