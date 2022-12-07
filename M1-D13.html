@@ -37,6 +37,9 @@ The user should be able to see the list of tasks, add new ones, delete existing 
       .button {
         padding: 8px 15px;
       }
+      .button-remove {
+        padding: 8px 15px;
+      }
     </style>
   </head>
   <body>
@@ -48,19 +51,19 @@ The user should be able to see the list of tasks, add new ones, delete existing 
       then press "Add new task"</span
     ><br /><br />
 
-    <input type="text" id="newTask" />
+    <input type="text" id="newTask" placeholder="add Task" />
     <input
       class="button"
       type="button"
       value="Add new Task"
-      onclick="addNewTask()"
+      onclick="addNewTask(event)"
     />
 
     <!-- EXERCISE 3
         Create a button "Remove Last Task" to trigger the method "removeLast"
         -->
     <input
-      class="button"
+      class="button-remove"
       type="button"
       value="Remove Last Task"
       onclick="removeLast()"
@@ -91,40 +94,79 @@ The user should be able to see the list of tasks, add new ones, delete existing 
     <input class="button" type="button" value="Sort" onclick="bubblesort()" />
 
     <script>
-      /* EXERCISE 5: 
+      let taskList;
+      let newTaskList = document.getElementById("myTaskList");
+      /* EXERCISE 5:
                 Add a new task to the list.
                 Suggestion:
                 - Use document.getElementById to get the UL item and the input text
                 - Use the document.createElement to create the new List Item
                 - Append the LI child to the UL
             */
+      function addNewTask(event) {
+        let inputValue = document.getElementById("newTask").value;
+        if (inputValue === "") {
+          alert("Text cannot be empty!");
+          return;
+        }
+        let newTask = document.createElement("li");
+        newTask.innerText = inputValue;
+        taskList = newTaskList.appendChild(newTask);
+        // console.log(taskList);
+        document.getElementById("newTask").value = ""; //// At the end, once we inserted the new element, we empty the field
+      }
 
-      /* EXERCISE 6: 
+      /* EXERCISE 6:
                 Create a method "removeLast" which removes the last item from the task list
             */
 
-      /* EXERCISE 7: 
+      function removeLast() {
+        if (newTaskList !== undefined) {
+          newTaskList.removeChild(newTaskList.lastElementChild);
+        } else {
+          alert("You don't have to remove item");
+        }
+      }
+
+      /* EXERCISE 7:
                 Create a method "removeFirst" which removes the first item from the task list
             */
+      function removeFirst() {
+        if (newTaskList !== undefined) {
+          newTaskList.removeChild(newTaskList.firstElementChild);
+        } else {
+          alert("You don't have to remove item");
+        }
+      }
 
-      /* EXERCISE 8: 
-               Create a method "getTasksAsArray" which returns, and prints to the console an array containing the tasks as strings
+      /* EXERCISE 8:
+               Create a method "Create a method "getTasksAsArray"" which returns, and prints to
+               the console an array containing the tasks as strings
             */
+      const getTasksAsArray = function () {
+        let taskArray = [];
+        taskArray.push(taskList);
+        console.log(taskArray);
+      };
 
       /* EXERCISE 9:
-               Create a method "changeTaskBackgroundColor" which takes the color from the color picker with an 
+               Create a method "changeTaskBackgroundColor" which takes the color from the color picker with an
                onchange event listener ad applies it as background to every list item
             */
 
+      function changeTaskBackgroundColor() {
+        let colorPicker = document.getElementById("colorPicker").value;
+        newTaskList.style.backgroundColor = colorPicker;
+      }
       /* EXTRA */
 
-      /* EXERCISE 10: 
+      /* EXERCISE 10:
                Create a method "bubbleSort()" which sorts the task list alphabetically using the bubble sort algorithm
-            
+
                Use your spare time to beautify your task list with CSS.
 
                Suggestion:
-               - Break the code into many function for semplicity 
+               - Break the code into many function for semplicity
                - Reuse the functions previously created
             */
     </script>
